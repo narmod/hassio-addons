@@ -106,10 +106,12 @@ http.createServer(async (req, res) => {
   <p class="sub">Texas Hold'em — play in your browser</p>
   <a class="btn" id="open" href="#" target="_blank" rel="noopener">Open PokerTH</a>
   <p class="small">The table opens in its own tab on port ${port}.</p>
+  <p class="small"><a id="admin" href="#" target="_blank" rel="noopener" style="color:#9fb3d9;text-decoration:none">Admin page →</a></p>
 </div>
 <script>
   var u = 'http://' + location.hostname + ':${port}/';
   document.getElementById('open').href = u;
+  document.getElementById('admin').href = u + 'admin';
 </script>
 </body></html>`);
 }).listen(INGRESS_PORT, () => console.log('[ingress] landing page on :' + INGRESS_PORT));

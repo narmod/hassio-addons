@@ -1,5 +1,5 @@
 name: PokerTH Web Client
-version: "1.4.1"
+version: "1.4.2"
 slug: pokerth_web_client
 description: Official PokerTH web client (PWA) — play from your browser
 url: https://github.com/narmod/hassio-addons/tree/main/pokerth-web-client
@@ -34,6 +34,6 @@ schema:
   git_ref: "str?"
   auto_update: "bool?"
   allowed_hosts:
-    - "str?"
+    - str
   allowed_ports:
-    - "port?"
+    - port

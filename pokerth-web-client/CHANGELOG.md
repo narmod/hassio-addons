@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.4.2
+
+- Fix the Configuration editor for `allowed_hosts` / `allowed_ports` (the optional-entry schema kept the HA list picker from adding values)
+- "Admin page →" link on the sidebar landing page; admin URL shown on the Info tab
+
+
 ## 1.4.1
 
 - Drop deprecated armv7 architecture (Supervisor warning)
