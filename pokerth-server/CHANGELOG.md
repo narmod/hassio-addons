@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.3
+
+- Fix restart loop: release builds daemonize (`daemon(0,0)`), so the container's main process exited immediately — the launcher now waits for the pid file, streams `server_messages.log` into the add-on log, and keeps the container alive while the server runs
+
+
 ## 1.0.2
 
 - Rebuilt as a multi-stage image: the final image installs the runtime libraries explicitly and copies the compiled binary — the fragile purge/autoremove cleanup is gone

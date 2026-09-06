@@ -44,4 +44,25 @@ else
 fi
 
 echo "[run] starting pokerth_dedicated_server (log-level $LOGLEVEL, port 7234)"
-exec /usr/local/bin/pokerth_dedicated_server --log-level "$LOGLEVEL" --pid-file /tmp/pokerth.pid
+# Release builds call daemon(0,0): the process forks to the background and the
+# parent returns immediately. Launch it, wait for the pid file, surface the
+# server log into the add-on log, and hold PID 1 while the daemon is alive.
+rm -f /tmp/pokerth.pid
+/usr/local/bin/pokerth_dedicated_server --log-level "$LOGLEVEL" --pid-file /tmp/pokerth.pid
+
+i=0
+while [ ! -s /tmp/pokerth.pid ] && [ $i -lt 50 ]; do i=$((i+1)); sleep 0.2; done
+PID="$(cat /tmp/pokerth.pid 2>/dev/null)"
+if [ -z "$PID" ] || ! kill -0 "$PID" 2>/dev/null; then
+  echo "[run] server failed to start — last log lines:"
+  tail -n 40 "$LOG_DIR/server_messages.log" 2>/dev/null || true
+  exit 1
+fi
+echo "[run] server running (pid $PID)"
+
+touch "$LOG_DIR/server_messages.log"
+tail -n +1 -F "$LOG_DIR/server_messages.log" &
+
+while kill -0 "$PID" 2>/dev/null; do sleep 3; done
+echo "[run] server exited"
+exit 1
