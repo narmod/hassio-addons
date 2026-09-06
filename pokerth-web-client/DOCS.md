@@ -42,7 +42,7 @@ For the full update's restart to bring the add-on back automatically, enable the
 | `git_ref` | `main` | Branch or tag of the web client to check out (e.g. `main` or `v2.1.8-web.20`). |
 | `auto_update` | `false` | Sync the checkout to `git_ref` on every add-on start. |
 | `external_port` | `0` | Port shown by the sidebar panel. `0` = detect the mapped host port automatically; set it manually if the sidebar button targets the wrong port. |
-| `allowed_hosts` | `[]` | Extra PokerTH server hostnames/IPs the proxy may bridge to (loopback and pokerth.net are always allowed). |
+| `allowed_hosts` | `[]` | Extra PokerTH server hostnames/IPs the proxy may bridge to (loopback and pokerth.net are always allowed). **Required for a LAN server**: add its IP here (e.g. `["192.168.1.50"]`), or the proxy rejects it with `Rejected connection to non-allowed host`. Also editable live in `/admin` § Proxy. |
 | `allowed_ports` | `[]` | Extra upstream ports besides the defaults 7234/7236. |
 
 The host port can be changed in the add-on's **Network** section (default 8080). The sidebar panel follows the remapped port automatically.

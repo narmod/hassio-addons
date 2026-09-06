@@ -7,7 +7,7 @@ This add-on builds and runs the official [PokerTH](https://github.com/pokerth/po
 1. Install the add-on (the server is **compiled from source** during installation — expect 30–60 minutes on a Raspberry Pi, a few minutes on x86).
 2. Start it. The server listens on TCP port **7234** (plain).
 3. Connect from:
-   - the **PokerTH Web Client add-on**: login mode *LAN server*, host = your HA hostname/IP, port 7234, TLS unchecked;
+   - the **PokerTH Web Client add-on**: first add your HA machine's IP to that add-on's `allowed_hosts` option (its proxy rejects unknown hosts by design), then login mode *LAN server*, host = that same IP, port 7234, TLS unchecked;
    - the official desktop/mobile clients: *Internet game → manual server* (or LAN), same host and port.
 
 ## Configuration
