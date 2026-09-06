@@ -1,0 +1,21 @@
+name: PokerTH Server
+version: "1.0.0"
+slug: pokerth_server
+description: PokerTH dedicated server (2.1.x) — host your own Texas Hold'em games
+url: https://github.com/narmod/hassio-addons/tree/main/pokerth-server
+arch:
+  - aarch64
+  - amd64
+init: false
+startup: services
+boot: auto
+ports:
+  7234/tcp: 7234
+ports_description:
+  7234/tcp: PokerTH game server (TCP, plain)
+options:
+  server_password: ""
+  log_level: 1
+schema:
+  server_password: "password?"
+  log_level: "int(0,2)?"
