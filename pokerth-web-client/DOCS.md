@@ -47,6 +47,8 @@ For the full update's restart to bring the add-on back automatically, enable the
 
 The host port can be changed in the add-on's **Network** section (default 8080). The sidebar panel follows the remapped port automatically.
 
+Note: the add-on is reachable on your local network only — Nabu Casa / the HA cloud URL tunnels the Home Assistant interface, not the add-on's port. Away from home, play on https://webclient.pokerth.net (same client, same servers).
+
 Note: the client always runs on plain HTTP on your LAN. If you reach Home Assistant over HTTPS (e.g. Nabu Casa), the sidebar panel still works — it opens the client in a new tab on the local port.
 
 ## Data

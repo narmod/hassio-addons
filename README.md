@@ -15,3 +15,5 @@ The official PokerTH web client (PWA) with its WebSocket-to-TCP proxy. Play on t
 1. In Home Assistant go to **Settings → Add-ons → Add-on store**.
 2. Menu (⋮) → **Repositories** → paste `https://github.com/narmod/hassio-addons` → **Add**.
 3. Install **PokerTH Web Client** from the store, start it, then click **Open Web UI**.
+
+> **Note — remote access:** Nabu Casa (and the HA cloud URL in general) only tunnels the Home Assistant interface, not the add-on's port. The client served by this add-on is therefore reachable on your **local network only**. To play away from home, use the official hosted client at https://webclient.pokerth.net — same client, same servers.
