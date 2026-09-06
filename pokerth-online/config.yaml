@@ -1,0 +1,16 @@
+name: PokerTH Online
+version: "1.0.0"
+slug: pokerth_online
+description: The official hosted PokerTH web client (webclient.pokerth.net) in your sidebar
+url: https://github.com/narmod/hassio-addons/tree/main/pokerth-online
+arch:
+  - aarch64
+  - amd64
+  - armv7
+init: false
+startup: services
+boot: auto
+ingress: true
+ingress_port: 8100
+panel_icon: mdi:cards-playing
+panel_title: PokerTH Online

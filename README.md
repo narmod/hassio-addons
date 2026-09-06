@@ -10,6 +10,10 @@ Home Assistant add-ons for [PokerTH](https://www.pokerth.net), the open-source T
 
 The official PokerTH web client (PWA) with its WebSocket-to-TCP proxy. Play on the official pokerth.net servers, or point it at any PokerTH server on your LAN — straight from a browser tab served by your Home Assistant box.
 
+### [PokerTH Online](./pokerth-online)
+
+A sidebar shortcut embedding the **official hosted client** at https://webclient.pokerth.net. Nothing runs locally, so it also works through remote access (Nabu Casa).
+
 ### [PokerTH Server](./pokerth-server)
 
 The PokerTH dedicated server (2.1.x) built from the official sources. Host your own games on your Home Assistant box and join them from the web client add-on (LAN mode) or the official desktop/mobile clients. aarch64/amd64; compiled at install time.
