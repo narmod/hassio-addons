@@ -39,4 +39,8 @@ export SCOPED_TOKENS_FILE="$DATA/scoped-tokens.json"
 export DEPLOY_HISTORY_FILE="$DATA/deploy-history.json"
 
 export PORT=8080
+
+# Ingress landing page (sidebar panel) — redirects to the mapped host port.
+node /ingress.mjs &
+
 exec node /opt/pokerth-web-client/proxy.js

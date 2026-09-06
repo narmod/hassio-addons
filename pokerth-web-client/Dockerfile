@@ -14,6 +14,7 @@ RUN apk add --no-cache nodejs npm git jq \
  && rm -rf /opt/pokerth-web-client/.git
 
 COPY run.sh /run.sh
+COPY ingress.mjs /ingress.mjs
 RUN chmod a+x /run.sh
 
 WORKDIR /opt/pokerth-web-client

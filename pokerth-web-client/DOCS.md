@@ -7,7 +7,7 @@ Embedded client release: **v2.1.8-web.20**.
 ## How to use
 
 1. Install and start the add-on.
-2. Click **Open Web UI** (or browse to `http://<your-ha-host>:8080`).
+2. Click **Open Web UI** (or browse to `http://<your-ha-host>:8080`), or use the **PokerTH** entry in the Home Assistant sidebar — it opens the client in its own tab.
 3. Pick a login mode:
    - **Guest / Account** — play on the official pokerth.net servers.
    - **LAN server** — point the client at a PokerTH dedicated server on your network (host + port, default 7234).
@@ -33,7 +33,9 @@ With an empty token the panel is inert (every request answers "admin disabled").
 | `allowed_hosts` | `[]` | Extra PokerTH server hostnames/IPs the proxy may bridge to (loopback and pokerth.net are always allowed). |
 | `allowed_ports` | `[]` | Extra upstream ports besides the defaults 7234/7236. |
 
-The host port can be changed in the add-on's **Network** section (default 8080).
+The host port can be changed in the add-on's **Network** section (default 8080). The sidebar panel follows the remapped port automatically.
+
+Note: the client always runs on plain HTTP on your LAN. If you reach Home Assistant over HTTPS (e.g. Nabu Casa), the sidebar panel still works — it opens the client in a new tab on the local port.
 
 ## Data
 
