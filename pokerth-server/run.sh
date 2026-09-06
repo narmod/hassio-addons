@@ -44,8 +44,15 @@ else
   P="$(esc "$(printf '%s' "$PASS" | sed 's/&/\&amp;/g; s/</\&lt;/g; s/"/\&quot;/g')")"
   sed -i -E "s|(<ServerPassword value=\")[^\"]*(\")|\1${P}\2|" "$CONF"
   sed -i -E "s|(<ServerPort value=\")[^\"]*(\")|\17234\2|" "$CONF"
-  sed -i -E "s|(<AppDataDir value=\")[^\"]*(\")|\1/usr/share/pokerth/data/\2|" "$CONF"
-  sed -i -E "s|(<CacheDir value=\")[^\"]*(\")|\1${CACHE_DIR}\2|" "$CONF"
+  # patch the managed paths; insert the element when an older config lacks it
+  for kv in "AppDataDir=/usr/share/pokerth/data/" "CacheDir=${CACHE_DIR}"; do
+    K="${kv%%=*}"; V="${kv#*=}"
+    if grep -q "<$K " "$CONF"; then
+      sed -i -E "s|(<$K value=\")[^\"]*(\")|\1${V}\2|" "$CONF"
+    else
+      sed -i "s|</Configuration>|  <$K value=\"${V}\"/>\n </Configuration>|" "$CONF"
+    fi
+  done
 fi
 
 echo "[run] starting pokerth_dedicated_server (log-level $LOGLEVEL, port 7234)"
@@ -66,8 +73,9 @@ fi
 echo "[run] server running (pid $PID)"
 
 touch "$LOG_DIR/server_messages.log"
-tail -n +1 -F "$LOG_DIR/server_messages.log" &
+tail -n 0 -F "$LOG_DIR/server_messages.log" &
 
 while kill -0 "$PID" 2>/dev/null; do sleep 3; done
-echo "[run] server exited"
+echo "[run] server exited — last log lines:"
+tail -n 40 "$LOG_DIR/server_messages.log" 2>/dev/null || true
 exit 1

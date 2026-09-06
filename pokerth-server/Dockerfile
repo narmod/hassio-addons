@@ -31,7 +31,7 @@ RUN cd /opt/src \
 # ── Runtime image ────────────────────────────────────────────────────────
 FROM ubuntu:questing
 
-ENV DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC
+ENV DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC LANG=C.UTF-8 LC_ALL=C.UTF-8
 
 RUN apt-get update \
  && apt-get install -y --no-install-recommends \
@@ -49,6 +49,8 @@ COPY --from=build /opt/src/build/bin/pokerth_dedicated_server /usr/local/bin/pok
 # Default avatars (464 KB): the server scans AppDataDir/gfx/avatars/default/*
 # at startup to recognize the players' built-in avatars.
 COPY --from=build /opt/src/data/gfx/avatars /usr/share/pokerth/data/gfx/avatars
+RUN test -d /usr/share/pokerth/data/gfx/avatars/default/people \
+ && test -d /usr/share/pokerth/data/gfx/avatars/default/misc
 
 # Smoke test at build time: the loader resolving every shared library and the
 # binary printing its banner proves the runtime set above is complete.

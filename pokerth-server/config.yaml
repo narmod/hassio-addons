@@ -1,5 +1,5 @@
 name: PokerTH Server
-version: "1.0.4"
+version: "1.0.5"
 slug: pokerth_server
 description: PokerTH dedicated server (2.1.x) — host your own Texas Hold'em games
 url: https://github.com/narmod/hassio-addons/tree/main/pokerth-server

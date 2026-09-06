@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.0.5
+
+- Log streaming no longer replays the whole server log on every start (old errors kept reappearing)
+- AppDataDir/CacheDir are inserted into an existing config.xml when missing, not only patched
+- Build-time check that the default avatars really are in the image; UTF-8 locale set (silences the Qt warning)
+- When the server dies, the last 40 log lines are printed before the container exits
+
+
 ## 1.0.4
 
 - Ship the default avatars (AppDataDir) and create a cache directory — fixes the "Avatar directory does not exist / Missing files" startup errors
