@@ -21,7 +21,8 @@ if [ -z "$JQ_MISSING" ]; then
   case "$LL" in 0|1|2) LOGLEVEL="$LL";; esac
 fi
 
-mkdir -p "$CONF_DIR" "$LOG_DIR"
+CACHE_DIR=/data/cache
+mkdir -p "$CONF_DIR" "$LOG_DIR" "$CACHE_DIR"
 
 # sed-escape the replacement (password may contain &, |, \)
 esc() { printf '%s' "$1" | sed 's/[&|\\]/\\&/g'; }
@@ -34,6 +35,8 @@ if [ ! -f "$CONF" ]; then
   <ServerPassword value="$(printf '%s' "$PASS" | sed 's/&/\&amp;/g; s/</\&lt;/g; s/"/\&quot;/g')"/>
   <ServerPort value="7234"/>
   <LogDir value="$LOG_DIR"/>
+  <AppDataDir value="/usr/share/pokerth/data/"/>
+  <CacheDir value="$CACHE_DIR"/>
  </Configuration>
 </PokerTH>
 XML
@@ -41,6 +44,8 @@ else
   P="$(esc "$(printf '%s' "$PASS" | sed 's/&/\&amp;/g; s/</\&lt;/g; s/"/\&quot;/g')")"
   sed -i -E "s|(<ServerPassword value=\")[^\"]*(\")|\1${P}\2|" "$CONF"
   sed -i -E "s|(<ServerPort value=\")[^\"]*(\")|\17234\2|" "$CONF"
+  sed -i -E "s|(<AppDataDir value=\")[^\"]*(\")|\1/usr/share/pokerth/data/\2|" "$CONF"
+  sed -i -E "s|(<CacheDir value=\")[^\"]*(\")|\1${CACHE_DIR}\2|" "$CONF"
 fi
 
 echo "[run] starting pokerth_dedicated_server (log-level $LOGLEVEL, port 7234)"

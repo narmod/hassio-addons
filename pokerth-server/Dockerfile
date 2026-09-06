@@ -46,6 +46,9 @@ RUN apt-get update \
  && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 COPY --from=build /opt/src/build/bin/pokerth_dedicated_server /usr/local/bin/pokerth_dedicated_server
+# Default avatars (464 KB): the server scans AppDataDir/gfx/avatars/default/*
+# at startup to recognize the players' built-in avatars.
+COPY --from=build /opt/src/data/gfx/avatars /usr/share/pokerth/data/gfx/avatars
 
 # Smoke test at build time: the loader resolving every shared library and the
 # binary printing its banner proves the runtime set above is complete.

@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.4
+
+- Ship the default avatars (AppDataDir) and create a cache directory — fixes the "Avatar directory does not exist / Missing files" startup errors
+
+
 ## 1.0.3
 
 - Fix restart loop: release builds daemonize (`daemon(0,0)`), so the container's main process exited immediately — the launcher now waits for the pid file, streams `server_messages.log` into the add-on log, and keeps the container alive while the server runs
