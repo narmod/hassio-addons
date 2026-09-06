@@ -40,6 +40,10 @@ export DEPLOY_HISTORY_FILE="$DATA/deploy-history.json"
 
 export PORT=8080
 
+# Sidebar landing page: manual host-port override (0 = ask the Supervisor).
+EP="$(jqr .external_port)"
+[ -n "$EP" ] && [ "$EP" != "0" ] && export EXTERNAL_PORT="$EP"
+
 # Ingress landing page (sidebar panel) — redirects to the mapped host port.
 node /ingress.mjs &
 

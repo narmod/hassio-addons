@@ -11,18 +11,29 @@ import http from 'node:http';
 
 const SUPERVISOR_TOKEN = process.env.SUPERVISOR_TOKEN || '';
 const INGRESS_PORT = 8099;
+// Manual override from the add-on option `external_port` (0 = automatic).
+const OPT_PORT = parseInt(process.env.EXTERNAL_PORT || '0', 10) || 0;
 
 let _cache = { port: 8080, ts: 0 };
 async function mappedHostPort() {
-  if (Date.now() - _cache.ts < 60_000) return _cache.port;
+  if (OPT_PORT) return OPT_PORT;
+  if (Date.now() - _cache.ts < 10_000) return _cache.port;
   try {
     const r = await fetch('http://supervisor/addons/self/info', {
       headers: { Authorization: 'Bearer ' + SUPERVISOR_TOKEN },
     });
-    const j = await r.json();
-    const p = j && j.data && j.data.network && j.data.network['8080/tcp'];
-    if (p) _cache = { port: p, ts: Date.now() };
-  } catch (_) { /* keep fallback */ }
+    if (!r.ok) {
+      console.error('[ingress] supervisor API HTTP ' + r.status + ' — using port ' + _cache.port);
+    } else {
+      const j = await r.json();
+      const p = j && j.data && j.data.network && j.data.network['8080/tcp'];
+      if (p) _cache = { port: p, ts: Date.now() };
+      else console.error('[ingress] no 8080/tcp mapping in supervisor reply — network=' +
+                         JSON.stringify(j && j.data && j.data.network));
+    }
+  } catch (e) {
+    console.error('[ingress] supervisor API unreachable (' + e.message + ') — using port ' + _cache.port);
+  }
   return _cache.port;
 }
 

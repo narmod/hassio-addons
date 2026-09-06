@@ -30,6 +30,7 @@ With an empty token the panel is inert (every request answers "admin disabled").
 | ------ | ------- | ----------- |
 | `admin_token` | *(empty)* | Token that unlocks the `/admin` panel. Empty = admin inert. |
 | `admin_enabled` | `true` | `false` fully hides the admin panel (404). |
+| `external_port` | `0` | Port shown by the sidebar panel. `0` = detect the mapped host port automatically; set it manually if the sidebar button targets the wrong port. |
 | `allowed_hosts` | `[]` | Extra PokerTH server hostnames/IPs the proxy may bridge to (loopback and pokerth.net are always allowed). |
 | `allowed_ports` | `[]` | Extra upstream ports besides the defaults 7234/7236. |
 
