@@ -1,21 +1,14 @@
 ARG BUILD_FROM
 FROM $BUILD_FROM
 
-# Pin the embedded web client to an exact release tag
-ARG CLIENT_TAG=v2.1.8-web.20
-
-RUN apk add --no-cache nodejs npm git jq \
- && git clone --depth 1 --branch ${CLIENT_TAG} \
-      https://github.com/narmod/pokerth-web-client.git /opt/pokerth-web-client \
- && cd /opt/pokerth-web-client \
- && npm install --omit=dev --no-audit --no-fund \
- && npm cache clean --force \
- && apk del git \
- && rm -rf /opt/pokerth-web-client/.git
+# docker-git install: the image ships only the runtime (node + git + jq).
+# The web client itself is cloned into /data/app on first start (run.sh),
+# so it survives image rebuilds and can self-update from the admin page
+# (proxy.js detects the git checkout and enables its "docker-git" mode).
+RUN apk add --no-cache nodejs npm git jq
 
 COPY run.sh /run.sh
 COPY ingress.mjs /ingress.mjs
 RUN chmod a+x /run.sh
 
-WORKDIR /opt/pokerth-web-client
 CMD [ "/run.sh" ]

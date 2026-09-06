@@ -17,7 +17,7 @@ const SUPERVISOR_TOKEN = process.env.SUPERVISOR_TOKEN || '';
 const INGRESS_PORT = 8099;
 // Manual override from the add-on option `external_port` (0 = automatic).
 const OPT_PORT = parseInt(process.env.EXTERNAL_PORT || '0', 10) || 0;
-const PUB = '/opt/pokerth-web-client/public';
+const PUB = '/data/app/public';
 
 let _cache = { port: 8080, ts: 0 };
 async function mappedHostPort() {

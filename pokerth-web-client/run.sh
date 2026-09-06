@@ -1,12 +1,45 @@
 #!/usr/bin/env sh
-# PokerTH Web Client add-on launcher.
-# Reads Home Assistant add-on options (/data/options.json) and maps them to
-# the environment variables understood by proxy.js, then execs the proxy.
+# PokerTH Web Client add-on launcher (docker-git install).
+# Clones the web client into /data/app on first start, maps Home Assistant
+# add-on options (/data/options.json) to the environment variables understood
+# by proxy.js, then execs the proxy from the checkout.
 set -e
 
 OPTS=/data/options.json
+REPO=https://github.com/narmod/pokerth-web-client.git
+APP=/data/app
 
 jqr() { jq -r "$1 // empty" "$OPTS" 2>/dev/null; }
+
+# ── Git checkout (docker-git) ────────────────────────────────────────────
+REF="$(jqr .git_ref)"
+[ -n "$REF" ] || REF=main
+
+if [ ! -d "$APP/.git" ]; then
+  echo "[run] first start: cloning $REPO @ $REF into $APP"
+  git clone --depth 1 --branch "$REF" "$REPO" "$APP"
+else
+  if [ "$(jqr .auto_update)" = "true" ]; then
+    echo "[run] auto_update: syncing $REF"
+    ( cd "$APP" \
+      && git checkout -- public/themes/themes.json public/seats/seats.json 2>/dev/null || true \
+      && git fetch --depth 1 origin "$REF" \
+      && git checkout -q -f -B "$REF" FETCH_HEAD ) \
+      || echo "[run] auto_update failed — keeping current checkout"
+  fi
+fi
+
+# npm install only when dependencies changed (hash of package.json).
+cd "$APP"
+HASH="$(sha1sum package.json | cut -d' ' -f1)"
+if [ ! -d node_modules ] || [ "$HASH" != "$(cat /data/.pkghash 2>/dev/null)" ]; then
+  echo "[run] installing npm dependencies"
+  npm install --omit=dev --no-audit --no-fund
+  echo "$HASH" > /data/.pkghash
+fi
+
+# proxy.js self-update follows this ref (admin page Update button).
+export GIT_BRANCH="$REF"
 
 # ── Admin panel ──────────────────────────────────────────────────────────
 # STATS_ADMIN_TOKEN gates every /admin route; empty token = panel inert.
@@ -47,4 +80,4 @@ EP="$(jqr .external_port)"
 # Ingress landing page (sidebar panel) — redirects to the mapped host port.
 node /ingress.mjs &
 
-exec node /opt/pokerth-web-client/proxy.js
+exec node "$APP/proxy.js"
