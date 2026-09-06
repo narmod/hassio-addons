@@ -1,5 +1,5 @@
 name: PokerTH Web Client
-version: "2.1.8-web.20"
+version: "1.1.0"
 slug: pokerth_web_client
 description: Official PokerTH web client (PWA) — play from your browser
 url: https://github.com/narmod/hassio-addons/tree/main/pokerth-web-client
@@ -13,5 +13,17 @@ boot: auto
 ports:
   8080/tcp: 8080
 ports_description:
-  8080/tcp: Web client (HTTP + WebSocket)
+  8080/tcp: Web client + admin page (HTTP + WebSocket)
 webui: http://[HOST]:[PORT:8080]
+options:
+  admin_token: ""
+  admin_enabled: true
+  allowed_hosts: []
+  allowed_ports: []
+schema:
+  admin_token: "password?"
+  admin_enabled: "bool?"
+  allowed_hosts:
+    - "str?"
+  allowed_ports:
+    - "port?"

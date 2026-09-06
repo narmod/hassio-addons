@@ -4,7 +4,7 @@ FROM $BUILD_FROM
 # Pin the embedded web client to an exact release tag
 ARG CLIENT_TAG=v2.1.8-web.20
 
-RUN apk add --no-cache nodejs npm git \
+RUN apk add --no-cache nodejs npm git jq \
  && git clone --depth 1 --branch ${CLIENT_TAG} \
       https://github.com/narmod/pokerth-web-client.git /opt/pokerth-web-client \
  && cd /opt/pokerth-web-client \
@@ -13,5 +13,8 @@ RUN apk add --no-cache nodejs npm git \
  && apk del git \
  && rm -rf /opt/pokerth-web-client/.git
 
+COPY run.sh /run.sh
+RUN chmod a+x /run.sh
+
 WORKDIR /opt/pokerth-web-client
-CMD [ "node", "proxy.js" ]
+CMD [ "/run.sh" ]
