@@ -1,5 +1,5 @@
 name: PokerTH Online
-version: "1.0.2"
+version: "1.0.3"
 slug: pokerth_online
 description: The official hosted PokerTH web client (webclient.pokerth.net) in your sidebar
 url: https://github.com/narmod/hassio-addons/tree/main/pokerth-online
@@ -13,3 +13,4 @@ ingress: true
 ingress_port: 8100
 panel_icon: mdi:cards-playing
 panel_title: PokerTH Online
+panel_admin: false

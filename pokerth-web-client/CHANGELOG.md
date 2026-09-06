@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.4.3
+
+- Show the sidebar panel to all users, not only administrators (`panel_admin: false`)
+
+
 ## 1.4.2
 
 - Fix the Configuration editor for `allowed_hosts` / `allowed_ports` (the optional-entry schema kept the HA list picker from adding values)

@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.3
+
+- Show the sidebar panel to all users, not only administrators (`panel_admin: false`)
+
+
 ## 1.0.2
 
 - Fix start: the base image's busybox has no `httpd` applet — serve the page with darkhttpd instead
