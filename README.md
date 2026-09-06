@@ -1,6 +1,12 @@
-# Narmod's PokerTH Add-ons
+# PokerTH Add-ons for Home Assistant
 
-Home Assistant add-ons for [PokerTH](https://www.pokerth.net), the open-source Texas Hold'em poker game.
+[![Add repository to my Home Assistant](https://img.shields.io/badge/Home%20Assistant-add%20repository-41BDF5?logo=home-assistant&logoColor=white)](https://my.home-assistant.io/redirect/supervisor_add_addon_repository/?repository_url=https%3A%2F%2Fgithub.com%2Fnarmod%2Fhassio-addons)
+[![License: AGPL v3](https://img.shields.io/badge/License-AGPL_v3-blue.svg)](LICENSE)
+![Architectures](https://img.shields.io/badge/arch-aarch64%20%7C%20amd64-green)
+
+Home Assistant add-ons for [PokerTH](https://www.pokerth.net), the open-source Texas Hold'em poker game: play in your browser, host your own game server, or pin the official hosted client to your sidebar.
+
+Maintained by a member of the PokerTH development team; the web client is the same code that powers the official https://webclient.pokerth.net.
 
 [![Open your Home Assistant instance and show the add add-on repository dialog with a specific repository URL pre-filled.](https://my.home-assistant.io/badges/supervisor_add_addon_repository.svg)](https://my.home-assistant.io/redirect/supervisor_add_addon_repository/?repository_url=https%3A%2F%2Fgithub.com%2Fnarmod%2Fhassio-addons)
 
