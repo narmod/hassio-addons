@@ -20,7 +20,7 @@ RUN apt-get update && apt-get upgrade -y \
  && cd /opt/src && git checkout ${POKERTH_COMMIT} \
  && cmake -DCMAKE_BUILD_TYPE:STRING=Release -S. -B./build -G Ninja \
  && cmake --build ./build --config Release --target pokerth_dedicated_server -- \
- && install -m 0755 ./build/src/pokerth_dedicated_server /usr/local/bin/pokerth_dedicated_server \
+ && install -m 0755 ./build/bin/pokerth_dedicated_server /usr/local/bin/pokerth_dedicated_server \
  # keep every shared library the binary actually needs, purge the rest
  && ldd /usr/local/bin/pokerth_dedicated_server | awk '$3 ~ /^\// {print $3}' \
       | xargs -r dpkg -S 2>/dev/null | cut -d: -f1 | sort -u \

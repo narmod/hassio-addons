@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.4.1
+
+- Drop deprecated armv7 architecture (Supervisor warning)
+
+
 ## 1.4.0
 
 - docker-git install: the image ships only the runtime; the web client is cloned into `/data/app` on first start and survives image rebuilds
