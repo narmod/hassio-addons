@@ -1,5 +1,5 @@
 name: PokerTH Online
-version: "1.0.1"
+version: "1.0.2"
 slug: pokerth_online
 description: The official hosted PokerTH web client (webclient.pokerth.net) in your sidebar
 url: https://github.com/narmod/hassio-addons/tree/main/pokerth-online

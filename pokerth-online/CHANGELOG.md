@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.2
+
+- Fix start: the base image's busybox has no `httpd` applet — serve the page with darkhttpd instead
+
+
 ## 1.0.1
 
 - Fix build: missing `build.yaml` left `$BUILD_FROM` empty

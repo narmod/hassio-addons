@@ -2,7 +2,10 @@ ARG BUILD_FROM
 FROM $BUILD_FROM
 
 # Static-only add-on: a single page embedding the official hosted client.
-# busybox httpd ships with the Home Assistant base image — no extra runtime.
+# darkhttpd is a ~100 KB static file server (the base image's busybox has
+# no httpd applet).
+RUN apk add --no-cache darkhttpd
+
 COPY www /www
 
-CMD [ "httpd", "-f", "-p", "8100", "-h", "/www" ]
+CMD [ "darkhttpd", "/www", "--port", "8100" ]
