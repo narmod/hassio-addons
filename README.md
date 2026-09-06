@@ -1,4 +1,4 @@
-# Narmod's PokerTH Add-ons
+# Narmod's hassio-Add-ons
 
 Home Assistant add-ons for [PokerTH](https://www.pokerth.net), the open-source Texas Hold'em poker game.
 
